@@ -39,21 +39,50 @@ class Tree {
         return this.root;
 
     }
+
+    insert(value) {
+        let current = this.root;
+        while (current != null) {
+            if (value === current.data) { return false; }
+            else if (value < current.data) {
+                if (current.left === null) {
+                    return current.left = new Node(value);
+                } else { current = current.left; }
+            }
+            else {
+                if (current.right === null) {
+                    return current.right = new Node(value);
+                } else { current = current.right; }
+            }
+        }
+    }
+
+    deleteItem(value) {
+
+    }
+
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node === null) {
-      return;
+        return;
     }
     if (node.right !== null) {
-      prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
+        prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
     }
     console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`);
     if (node.left !== null) {
-      prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
+        prettyPrint(node.left, `${prefix}${isLeft ? "    " : "│   "}`, true);
     }
-  };
+};
 
 const bst = new Tree();
-bst.buildTree([2,1,3]);
+bst.buildTree([2, 4, 6, 8]);
+bst.insert(3);
+bst.insert(1);
+bst.insert(1);
+bst.insert(14);
+bst.insert(13);
+bst.insert(66);
 prettyPrint(bst.root);
