@@ -1,8 +1,8 @@
 {
-  "name": "hashmap",
+  "name": "binary-search-tree",
   "version": "1.0.0",
-  "description": "HashMap Project - from The Odin Project (jun. 2024)",
-  "main": "hashmap.js",
+  "description": "Binary Search Tree Project - from The Odin Project (jun. 2024)",
+  "main": "bst.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
