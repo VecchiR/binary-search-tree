@@ -58,7 +58,61 @@ class Tree {
     }
 
     deleteItem(value) {
+        let current = this.root;
+        let previous;
 
+        while (current != null) {
+
+            //NODE WAS FOUND
+            if (value === current.data) {
+
+                // NODE IS CHILDRENLESS 
+                if (current.left === null && current.right === null) {
+
+                    // NODE IS THE ROOT
+                    if (current.data === this.root.data) {
+                        return this.root = null;
+                    }
+
+                    // NODE IS CHILDRENLESS && IS NOT THE ROOT NODE
+                    else {
+                        return value > previous.data ?
+                            previous.right = null :
+                            previous.left = null;
+                    }
+                }
+
+                // NODE HAS CHILDREN
+                else {
+
+                    // NODE HAS 1 CHILD
+                    if (current.left != null ^ current.right != null) {
+                        if (value > previous.data) {
+                            return previous.right =
+                                current.left != null ? current.left : current.right;
+                        }
+                        else if (value < previous.data) {
+                            return previous.left =
+                                current.left != null ? current.left : current.right;
+                        }
+                    }
+
+                    // NODE HAS 2 CHILDREN
+                    else if (current.left != null && current.right != null) {
+
+                    }
+                }
+            }
+
+
+            // NODE WAS NOT FOUND
+            else {
+                previous = current;
+                current = value < current.data ?
+                    current.left : // VALUE IS SMALLER THAN CURRENT VALUE
+                    current.right; // VALUE IS BIGGER THAN CURRENT VALUE
+            }
+        }
     }
 
 
@@ -77,6 +131,8 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
     }
 };
 
+
+
 const bst = new Tree();
 bst.buildTree([2, 4, 6, 8]);
 bst.insert(3);
@@ -84,5 +140,13 @@ bst.insert(1);
 bst.insert(1);
 bst.insert(14);
 bst.insert(13);
+bst.insert(12);
+bst.insert(11);
 bst.insert(66);
+prettyPrint(bst.root);
+bst.deleteItem(6);
+prettyPrint(bst.root);
+bst.deleteItem(1);
+prettyPrint(bst.root);
+bst.deleteItem(8);
 prettyPrint(bst.root);
