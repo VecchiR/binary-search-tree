@@ -22,7 +22,7 @@ class Tree {
         }
 
         if (arr.length < 2) {
-            arr[0] === undefined ? this.root = new Node(null) : this.root = new Node(arr[0]);
+            arr[0] === undefined ? this.root = null : this.root = new Node(arr[0]);
             return this.root;
         }
         let middleElementIndex = Math.floor((arr.length - 1) / 2);
