@@ -99,7 +99,30 @@ class Tree {
 
                     // NODE HAS 2 CHILDREN
                     else if (current.left != null && current.right != null) {
+                        // go to right node
+                        previous = current;
+                        current = current.right;
 
+                        // if right node HAS 0 OR 1 child, node anterior vira child node
+                        if ((current.left != null && current.right === null) ||
+                            (current.left === null && current.right != null)) {
+                            return previous = current.left === null ?
+                                current.right : current.left; 
+                            }
+
+                        // if right node 2 CHILDREN -> go to the left untill node.left é null
+                        if (current.left != null && current.right != null) {
+                            while (current.left != null) {
+                                current = current.left;
+                            }
+                            previous = current;
+                            if (current.right != null) {
+                                
+                            }
+
+
+                            //TEM RIGHT -> anterio aponta o left p/ right dele
+                        }
                     }
                 }
             }
