@@ -58,84 +58,80 @@ class Tree {
     }
 
     deleteItem(value) {
-        let current = this.root;
-        let previous;
+        let target = this.root;
+        let targetParent;
 
-        while (current != null) {
+        while (target != null) {
 
-            //NODE WAS FOUND
-            if (value === current.data) {
+            //TARGET WAS FOUND
+            if (value === target.data) {
 
-                // NODE IS CHILDRENLESS 
-                if (current.left === null && current.right === null) {
+                // TARGET IS CHILDRENLESS 
+                if (target.left === null && target.right === null) {
 
-                    // NODE IS THE ROOT
-                    if (current.data === this.root.data) {
+                    // TARGET IS THE ROOT
+                    if (target.data === this.root.data) {
                         return this.root = null;
                     }
 
-                    // NODE IS CHILDRENLESS && IS NOT THE ROOT NODE
+                    // TARGET IS CHILDRENLESS && IS NOT THE ROOT NODE
                     else {
-                        return value > previous.data ?
-                            previous.right = null :
-                            previous.left = null;
+                        return value > targetParent.data ?
+                            targetParent.right = null :
+                            targetParent.left = null;
                     }
                 }
 
-                // NODE HAS CHILDREN
+                // TARGET HAS CHILDREN
                 else {
 
-                    // NODE HAS 1 CHILD
-                    if (current.left != null ^ current.right != null) {
-                        if (value > previous.data) {
-                            return previous.right =
-                                current.left != null ? current.left : current.right;
+                    // TARGET HAS 1 CHILD
+                    if (target.left != null ^ target.right != null) {
+                        if (value > targetParent.data) {
+                            return targetParent.right =
+                                target.left != null ? target.left : target.right;
                         }
-                        else if (value < previous.data) {
-                            return previous.left =
-                                current.left != null ? current.left : current.right;
+                        else if (value < targetParent.data) {
+                            return targetParent.left =
+                                target.left != null ? target.left : target.right;
                         }
                     }
 
-                    // NODE HAS 2 CHILDREN
-                    else if (current.left != null && current.right != null) {
+
+
+                    // TARGET HAS 2 CHILDREN
+                    else if (target.left != null && target.right != null) {
                         // go to right node
-                        previous = current;
-                        current = current.right;
+                        let current = target.right;
+                        let currentParent = target;
 
-                        // if right node HAS 0 OR 1 child, node anterior vira child node
-                        if ((current.left != null && current.right === null) ||
-                            (current.left === null && current.right != null)) {
-                            return previous = current.left === null ?
-                                current.right : current.left; 
-                            }
-
-                        // if right node 2 CHILDREN -> go to the left untill node.left é null
-                        if (current.left != null && current.right != null) {
-                            while (current.left != null) {
-                                current = current.left;
-                            }
-                            previous = current;
-                            if (current.right != null) {
-                                
-                            }
-
-
-                            //TEM RIGHT -> anterio aponta o left p/ right dele
+                        // go to the leftmost node
+                        while (current.left != null) {
+                            currentParent = current;
+                            current = current.left;
                         }
+
+                        // SE O LEFTMOST TEM RIGHT CHILD -> daí currentParent.left aponta pra current.right
+                        if (current.right != null) {
+                            currentParent.left = current.right;    
+                        } else { currentParent.left = null; }
+                        
+                        // passa o leftmost pro lugar do target
+                        return target.data = current.data;
                     }
                 }
             }
 
 
-            // NODE WAS NOT FOUND
+            // TARGET WAS NOT FOUND
             else {
-                previous = current;
-                current = value < current.data ?
-                    current.left : // VALUE IS SMALLER THAN CURRENT VALUE
-                    current.right; // VALUE IS BIGGER THAN CURRENT VALUE
+                targetParent = target;
+                target = value < target.data ?
+                    target.left : // VALUE IS SMALLER THAN CURRENT VALUE
+                    target.right; // VALUE IS BIGGER THAN CURRENT VALUE
             }
         }
+        prettyPrint(this.root);
     }
 
 
@@ -167,9 +163,9 @@ bst.insert(12);
 bst.insert(11);
 bst.insert(66);
 prettyPrint(bst.root);
-bst.deleteItem(6);
+bst.deleteItem(2); 
 prettyPrint(bst.root);
-bst.deleteItem(1);
+bst.deleteItem(14); 
 prettyPrint(bst.root);
-bst.deleteItem(8);
+bst.deleteItem(66);
 prettyPrint(bst.root);
