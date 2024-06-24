@@ -87,13 +87,17 @@ class Tree {
 
                     // TARGET HAS 1 CHILD
                     if (target.left != null ^ target.right != null) {
-                        if (value > targetParent.data) {
+                        if (value === this.root.data) {
+                            return this.root =
+                            target.left != null ? target.left : target.right;
+                        }
+                        else if (value > targetParent.data) {
                             return targetParent.right =
-                                target.left != null ? target.left : target.right;
+                            target.left != null ? target.left : target.right;
                         }
                         else if (value < targetParent.data) {
                             return targetParent.left =
-                                target.left != null ? target.left : target.right;
+                            target.left != null ? target.left : target.right;
                         }
                     }
 
@@ -101,23 +105,35 @@ class Tree {
 
                     // TARGET HAS 2 CHILDREN
                     else if (target.left != null && target.right != null) {
-                        // go to right node
-                        let current = target.right;
-                        let currentParent = target;
-
-                        // go to the leftmost node
-                        while (current.left != null) {
-                            currentParent = current;
-                            current = current.left;
+                        // go to the leftmost node of the right side of the target
+                        let leftmost = target.right;
+                        let leftmostParent = 'root';
+                        while (leftmost.left != null) {
+                            leftmostParent = leftmost;
+                            leftmost = leftmost.left;
                         }
 
-                        // SE O LEFTMOST TEM RIGHT CHILD -> daí currentParent.left aponta pra current.right
-                        if (current.right != null) {
-                            currentParent.left = current.right;    
-                        } else { currentParent.left = null; }
-                        
+                        // SE O LEFTMOST TEM RIGHT CHILD -> daí leftmost's parent.left aponta pra letfmost.right
+                        if (leftmost.right != null) {
+                            if(leftmostParent === 'root') {
+                                target.right = leftmost.right;
+                            }
+                            else {leftmostParent.left = leftmost.right;}    
+                            
+                            
+                        } else {
+                            if (leftmostParent === 'root') {
+                                target.right = null;
+                            }
+                            else {
+                                leftmostParent.left = null;
+    
+                            } 
+                        }
+
                         // passa o leftmost pro lugar do target
-                        return target.data = current.data;
+                        target.data = leftmost.data;
+                        return;
                     }
                 }
             }
@@ -131,7 +147,7 @@ class Tree {
                     target.right; // VALUE IS BIGGER THAN CURRENT VALUE
             }
         }
-        prettyPrint(this.root);
+        
     }
 
 
@@ -154,6 +170,7 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 
 const bst = new Tree();
 bst.buildTree([2, 4, 6, 8]);
+// bst.buildTree([2, 4, 6, 8, 11, 12, 13 ,15 ,16 ,18, 77]);
 bst.insert(3);
 bst.insert(1);
 bst.insert(1);
@@ -162,10 +179,24 @@ bst.insert(13);
 bst.insert(12);
 bst.insert(11);
 bst.insert(66);
+bst.insert(7);
+bst.insert(9);
+bst.insert(10);
+test(8);
+test(9);
+test(14);
+test(10);
+test(4);
+test(6);
+test(7);
+test(11);
+test(12);
+test(13);
+test(66);
 prettyPrint(bst.root);
-bst.deleteItem(2); 
-prettyPrint(bst.root);
-bst.deleteItem(14); 
-prettyPrint(bst.root);
-bst.deleteItem(66);
-prettyPrint(bst.root);
+
+
+function test (x){
+    bst.deleteItem(x);
+    prettyPrint(bst.root);
+}
