@@ -89,15 +89,15 @@ class Tree {
                     if (target.left != null ^ target.right != null) {
                         if (value === this.root.data) {
                             return this.root =
-                            target.left != null ? target.left : target.right;
+                                target.left != null ? target.left : target.right;
                         }
                         else if (value > targetParent.data) {
                             return targetParent.right =
-                            target.left != null ? target.left : target.right;
+                                target.left != null ? target.left : target.right;
                         }
                         else if (value < targetParent.data) {
                             return targetParent.left =
-                            target.left != null ? target.left : target.right;
+                                target.left != null ? target.left : target.right;
                         }
                     }
 
@@ -115,20 +115,20 @@ class Tree {
 
                         // SE O LEFTMOST TEM RIGHT CHILD -> daí leftmost's parent.left aponta pra letfmost.right
                         if (leftmost.right != null) {
-                            if(leftmostParent === 'root') {
+                            if (leftmostParent === 'root') {
                                 target.right = leftmost.right;
                             }
-                            else {leftmostParent.left = leftmost.right;}    
-                            
-                            
+                            else { leftmostParent.left = leftmost.right; }
+
+
                         } else {
                             if (leftmostParent === 'root') {
                                 target.right = null;
                             }
                             else {
                                 leftmostParent.left = null;
-    
-                            } 
+
+                            }
                         }
 
                         // passa o leftmost pro lugar do target
@@ -147,9 +147,22 @@ class Tree {
                     target.right; // VALUE IS BIGGER THAN CURRENT VALUE
             }
         }
-        
+
     }
 
+    find(value) {
+        let current = this.root;
+        while (current != null) {
+            if (value === current.data) { return current; }
+            else if (value < current.data) {
+                current = current.left;
+            }
+            else {
+                current = current.right;
+            }
+        }
+        return console.log('Node not found');
+    }
 
 }
 
@@ -182,21 +195,12 @@ bst.insert(66);
 bst.insert(7);
 bst.insert(9);
 bst.insert(10);
-test(8);
-test(9);
-test(14);
-test(10);
-test(4);
-test(6);
-test(7);
-test(11);
-test(12);
-test(13);
-test(66);
+prettyPrint(bst.root);
+bst.find(2);
 prettyPrint(bst.root);
 
 
-function test (x){
+function test(x) {
     bst.deleteItem(x);
     prettyPrint(bst.root);
 }
