@@ -164,6 +164,24 @@ class Tree {
         return console.log('Node not found');
     }
 
+    levelOrder(callback) {
+        let queue = [this.root];
+        let result = [];
+
+
+        while (queue.length > 0) {
+            if (callback) {
+                callback(queue[0].data);
+            } else { result.push(queue[0].data); }
+            if (queue[0].left != null) { queue.push(queue[0].left); }
+            if (queue[0].right != null) { queue.push(queue[0].right); }
+            queue.shift();
+        }
+
+        return callback ? "Callback finished running!" : result;
+    }
+
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -180,23 +198,27 @@ const prettyPrint = (node, prefix = "", isLeft = true) => {
 };
 
 
+function testCallback(data) {
+    console.log(data);
+}
 
 const bst = new Tree();
-bst.buildTree([2, 4, 6, 8]);
-// bst.buildTree([2, 4, 6, 8, 11, 12, 13 ,15 ,16 ,18, 77]);
-bst.insert(3);
-bst.insert(1);
-bst.insert(1);
-bst.insert(14);
-bst.insert(13);
-bst.insert(12);
-bst.insert(11);
-bst.insert(66);
-bst.insert(7);
-bst.insert(9);
-bst.insert(10);
+// bst.buildTree([2, 4, 6]);
+bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
+// bst.buildTree([2, 4, 6, 8]);
+// bst.insert(3);
+// bst.insert(1);
+// bst.insert(1);
+// bst.insert(14);
+// bst.insert(13);
+// bst.insert(12);
+// bst.insert(11);
+// bst.insert(66);
+// bst.insert(7);
+// bst.insert(9);
+// bst.insert(10);
 prettyPrint(bst.root);
-bst.find(2);
+console.log(bst.levelOrder(testCallback));
 prettyPrint(bst.root);
 
 
