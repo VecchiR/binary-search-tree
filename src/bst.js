@@ -215,6 +215,21 @@ class Tree {
         return callback ? "Callback finished running!" : result;
     }
 
+    height(node) {
+
+
+        if (node === undefined) { node = this.root; }
+
+        if (node === null) {
+            return -1;
+        }
+
+        let leftHeight = this.height(node.left)
+        let rightHeight = this.height(node.right)
+
+        return Math.max(leftHeight, rightHeight) +1;
+    }
+
 
 }
 
@@ -224,8 +239,8 @@ class Tree {
 
 
 const bst = new Tree();
-bst.buildTree([2, 4, 6]);
-// bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
+// bst.buildTree([2, 4, 6]);
+bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
 // bst.buildTree([1, 2, 3, 4, 5, 6, 7, 8]);
 // bst.buildTree([2, 4, 6, 8]);
 bst.insert(3);
@@ -240,7 +255,7 @@ bst.insert(7);
 bst.insert(9);
 bst.insert(10);
 prettyPrint(bst.root);
-console.log(bst.postOrder(testCallback));
+console.log(bst.height());
 
 
 function testCallback(data) {
