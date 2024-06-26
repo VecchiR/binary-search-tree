@@ -182,37 +182,55 @@ class Tree {
         return callback ? "Callback finished running!" : result;
     }
 
+    inOrder(callback = false, node = this.root, result = []) {
+        if (!node) { return; }
+
+        this.inOrder(callback, node.left, result);
+
+        if (callback) { callback(node.data); }
+        else { result.push(node.data); }
+
+        this.inOrder(callback, node.right, result);
+
+        return callback ? "Callback finished running!" : result;
+    }
+
+    preOrder(callback) {
+
+    }
+
+    postOrder(callback) {
+
+    }
+
 
 }
 
 
+
+
+
+
+const bst = new Tree();
+bst.buildTree([2, 4, 6]);
+// bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
+// bst.buildTree([1, 2, 3, 4, 5, 6, 7, 8]);
+// bst.buildTree([2, 4, 6, 8]);
+bst.insert(3);
+bst.insert(1);
+bst.insert(1);
+bst.insert(14);
+bst.insert(13);
+bst.insert(12);
+bst.insert(11);
+bst.insert(66);
+bst.insert(7);
+bst.insert(9);
+bst.insert(10);
+prettyPrint(bst.root);
+console.log(bst.inOrder(testCallback));
 
 
 function testCallback(data) {
     console.log(data);
-}
-
-const bst = new Tree();
-// bst.buildTree([2, 4, 6]);
-bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
-// bst.buildTree([2, 4, 6, 8]);
-// bst.insert(3);
-// bst.insert(1);
-// bst.insert(1);
-// bst.insert(14);
-// bst.insert(13);
-// bst.insert(12);
-// bst.insert(11);
-// bst.insert(66);
-// bst.insert(7);
-// bst.insert(9);
-// bst.insert(10);
-prettyPrint(bst.root);
-console.log(bst.levelOrder(testCallback));
-prettyPrint(bst.root);
-
-
-function test(x) {
-    bst.deleteItem(x);
-    prettyPrint(bst.root);
 }
