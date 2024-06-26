@@ -195,8 +195,14 @@ class Tree {
         return callback ? "Callback finished running!" : result;
     }
 
-    preOrder(callback) {
+    preOrder(callback = false, node = this.root, result = []) {
+        if (!node) { return; }
 
+        if (callback) { callback(node.data); }
+        else { result.push(node.data); }
+        this.preOrder(callback, node.left, result);
+        this.preOrder(callback, node.right, result);
+        return callback ? "Callback finished running!" : result;
     }
 
     postOrder(callback) {
@@ -228,7 +234,7 @@ bst.insert(7);
 bst.insert(9);
 bst.insert(10);
 prettyPrint(bst.root);
-console.log(bst.inOrder(testCallback));
+console.log(bst.preOrder());
 
 
 function testCallback(data) {
