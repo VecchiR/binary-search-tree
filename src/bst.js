@@ -215,20 +215,20 @@ class Tree {
         return callback ? "Callback finished running!" : result;
     }
 
-    height(node) {
-
-
-        if (node === undefined) { node = this.root; }
-
-        if (node === null) {
-            return -1;
-        }
-
-        let leftHeight = this.height(node.left)
-        let rightHeight = this.height(node.right)
-
-        return Math.max(leftHeight, rightHeight) +1;
+    height(node = this.root) {
+        if (node === null) { return -1; }
+        let leftHeight = this.height(node.left);
+        let rightHeight = this.height(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
     }
+
+    depth(node = this.root, current = this.root) {
+        if (current === null) { return Infinity;}
+        if (node.data === current.data) { return 0; }
+        let leftDepth = this.depth(node, current.left);
+        let rightDepth  = this.depth(node, current.right);
+        return Math.min(leftDepth, rightDepth) + 1;
+    }   
 
 
 }
@@ -255,7 +255,7 @@ bst.insert(7);
 bst.insert(9);
 bst.insert(10);
 prettyPrint(bst.root);
-console.log(bst.height());
+console.log(bst.depth(bst.find(12)));
 
 
 function testCallback(data) {
