@@ -241,6 +241,14 @@ class Tree {
 
     }
 
+    rebalance() {
+        // Tip: You’ll want to use a traversal method to provide a new array to the buildTree function.
+        let arr = this.inOrder();
+        this.buildTree(arr);
+        return this.root;
+    }
+
+
 
 }
 
@@ -251,7 +259,13 @@ class Tree {
 
 const bst = new Tree();
 bst.buildTree([2, 4, 6]);
+bst.insert(64);
+bst.insert(65);
+
 // bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
+prettyPrint(bst.root);
+console.log(bst.isBalanced());
+bst.rebalance();
 prettyPrint(bst.root);
 console.log(bst.isBalanced());
 
