@@ -230,6 +230,12 @@ class Tree {
         return Math.min(leftDepth, rightDepth) + 1;
     }   
 
+    isBalanced() {
+        //A balanced tree is one where the difference between 
+        //heights of the left subtree 
+        //and the right subtree of every node is not more than 1
+    }
+
 
 }
 
