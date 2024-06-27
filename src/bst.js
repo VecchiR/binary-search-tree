@@ -230,10 +230,15 @@ class Tree {
         return Math.min(leftDepth, rightDepth) + 1;
     }   
 
-    isBalanced() {
+    isBalanced(current = this.root) {
         //A balanced tree is one where the difference between 
         //heights of the left subtree 
         //and the right subtree of every node is not more than 1
+        if (current === null) {return 0;}
+        let leftside = this.height(current.left);
+        let rightside =  this.height(current.right);
+        return Math.abs(leftside - rightside) <= 1 ? true : false;
+
     }
 
 
@@ -245,23 +250,10 @@ class Tree {
 
 
 const bst = new Tree();
-// bst.buildTree([2, 4, 6]);
-bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
-// bst.buildTree([1, 2, 3, 4, 5, 6, 7, 8]);
-// bst.buildTree([2, 4, 6, 8]);
-bst.insert(3);
-bst.insert(1);
-bst.insert(1);
-bst.insert(14);
-bst.insert(13);
-bst.insert(12);
-bst.insert(11);
-bst.insert(66);
-bst.insert(7);
-bst.insert(9);
-bst.insert(10);
+bst.buildTree([2, 4, 6]);
+// bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
 prettyPrint(bst.root);
-console.log(bst.depth(bst.find(12)));
+console.log(bst.isBalanced());
 
 
 function testCallback(data) {
