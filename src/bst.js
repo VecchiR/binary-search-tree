@@ -10,7 +10,6 @@ class Node {
     }
 }
 
-
 class Tree {
     constructor() {
         this.root = null;
@@ -223,53 +222,70 @@ class Tree {
     }
 
     depth(node = this.root, current = this.root) {
-        if (current === null) { return Infinity;}
+        if (current === null) { return Infinity; }
         if (node.data === current.data) { return 0; }
         let leftDepth = this.depth(node, current.left);
-        let rightDepth  = this.depth(node, current.right);
+        let rightDepth = this.depth(node, current.right);
         return Math.min(leftDepth, rightDepth) + 1;
-    }   
+    }
 
     isBalanced(current = this.root) {
-        //A balanced tree is one where the difference between 
-        //heights of the left subtree 
-        //and the right subtree of every node is not more than 1
-        if (current === null) {return 0;}
+        if (current === null) { return 0; }
         let leftside = this.height(current.left);
-        let rightside =  this.height(current.right);
+        let rightside = this.height(current.right);
         return Math.abs(leftside - rightside) <= 1 ? true : false;
 
     }
 
     rebalance() {
-        // Tip: You’ll want to use a traversal method to provide a new array to the buildTree function.
         let arr = this.inOrder();
         this.buildTree(arr);
         return this.root;
     }
-
-
-
 }
 
-
-
-
-
-
-const bst = new Tree();
-bst.buildTree([2, 4, 6]);
-bst.insert(64);
-bst.insert(65);
-
-// bst.buildTree([2, 4, 6, 8, 11, 12, 13, 15, 16, 18, 77]);
-prettyPrint(bst.root);
-console.log(bst.isBalanced());
-bst.rebalance();
-prettyPrint(bst.root);
-console.log(bst.isBalanced());
-
+function testScript() {
+    const bst = new Tree();
+    bst.buildTree(generate());
+    prettyPrint(bst.root);
+    console.log("Balanced?", bst.isBalanced());
+    console.log("Level:", bst.levelOrder());
+    console.log("In order:", bst.inOrder());
+    console.log("pre order:", bst.preOrder());
+    console.log("post order:", bst.postOrder());
+    bst.insert(122);
+    bst.insert(789);
+    bst.insert(132);
+    bst.insert(135);
+    bst.insert(244);
+    bst.insert(999);
+    prettyPrint(bst.root);
+    console.log("Balanced?", bst.isBalanced());
+    bst.rebalance();
+    prettyPrint(bst.root);
+    console.log("Balanced?", bst.isBalanced());
+    console.log("Level:", bst.levelOrder());
+    console.log("In order:", bst.inOrder());
+    console.log("pre order:", bst.preOrder());
+    console.log("post order:", bst.postOrder());
+}
 
 function testCallback(data) {
     console.log(data);
 }
+
+function generate() {
+    let numberOfNumbers = Math.floor((Math.random()) * 100) % 25 + 1;
+    let arrayOfNumbers = [];
+    let randomNumber;
+    let i = 0;
+    while (i < numberOfNumbers) {
+        randomNumber = Math.floor((Math.random()) * 100) + 1;
+        arrayOfNumbers.push(randomNumber);
+        i++;
+    }
+    return arrayOfNumbers;
+}
+
+
+testScript();
